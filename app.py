@@ -2,9 +2,6 @@ import os
 
 board_list = [" " for _ in range(9)]
 
-print("HEY! Welcome to my Tic Tac Toe game.")
-print("Hope you enjoy!")
-
 def print_board(board):
     print(f" {board[0]} | {board[1]} | {board[2]} ")
     print("---|---|---")
@@ -27,30 +24,33 @@ def check_win(board, player):
     return False
 
 def player_move(board, player):
+    clear_screen()
+    print_board(board)
     while True:
         try:
-            clear_screen()
-            print_board(board)
             player_choose = int(input(f"It's {player}'s turn\nEnter a number for your case (1 to 9): "))
             if player_choose < 1 or player_choose > 9:
+                clear_screen()
+                print_board(board)
                 print("Invalid number. Choose between 1 and 9.")
+    
                 continue
             if board[player_choose - 1] != " ":
+                clear_screen()
+                print_board(board)
                 print("That spot is already taken!")
                 continue
             break
         except ValueError:
+            clear_screen()
+            print_board(board)
             print("Please enter a valid number.")
+
     board[player_choose - 1] = player
 
 def start(board):
-    player_1_symbol = input("Enter your symbol (X/O) : ").upper()
-    if player_1_symbol not in ("X", "O"):
-        print("Invalid symbol. Please choose X or O.")
-        return start(board)
-
-    player = player_1_symbol
-    other_player = "O" if player_1_symbol == "X" else "X"
+    player = "X"
+    other_player = "O"
 
     while True:
         clear_screen()
@@ -62,6 +62,7 @@ def start(board):
             print_board(board)
             print(f"🎉 {player} wins!")
             break
+        
         if " " not in board:
             clear_screen()
             print_board(board)

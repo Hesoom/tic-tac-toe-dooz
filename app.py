@@ -1,5 +1,6 @@
 import os
 
+
 board_list = [" " for _ in range(9)]
 
 def print_board(board):
@@ -61,15 +62,36 @@ def start(board):
             clear_screen()
             print_board(board)
             print(f"🎉 {player} wins!")
-            break
+            if play_again():
+                board[:] = [" " for _ in range(9)]
+                continue
+            else:
+                print("Goodbye!")
+                break
         
         if " " not in board:
             clear_screen()
             print_board(board)
             print("It's a draw!")
-            break
+            if play_again():
+                board = [" " for _ in range(9)]
+                continue
+            else:
+                print("Goodbye!")
+                break
 
         # Switch player
         player, other_player = other_player, player
+    
+def play_again ():
+        # Play again
+    while True:
+        play = input("Do you want to play again? (y/n): ").lower()
+        if play == 'y':
+            return True
+        elif play == 'n':
+            return False
+        else:
+            print("Please enter a valid answer.")
 
 start(board_list)
